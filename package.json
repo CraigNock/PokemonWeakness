@@ -1,0 +1,25 @@
+{
+  "name": "PokemonWeakness",
+  "version": "1.0.0",
+  "description": "Pokemon Weakness app",
+  "main": "/client/public/index.html",
+  "scripts": {
+    "client": "cd client && yarn start",
+    "server": "cd server && node index.js",
+    "start": "concurrently \"yarn server\" \"yarn client\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CraigNock/PokemonWeakness.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CraigNock/PokemonWeakness/issues"
+  },
+  "homepage": "https://github.com/CraigNock/PokemonWeakness#readme",
+  "dependencies": {
+    "concurrently": "^5.2.0"
+  }
+}
