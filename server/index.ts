@@ -35,9 +35,25 @@ const pokemonHandler: RequestHandler = async (req, res) => {
 
 };
 
+interface objectThing {
+  [key: string]: number
+};
+
 const sortWeakness = (types: string[]) => {
-  
-  return
+  let weaknesses: objectThing = {};
+  types.forEach(entry => {
+    let order = TYPE_ORDER[entry];
+    TYPES.forEach(element => {
+      if ((TYPE_CHART[element])[order] === 2) {
+        weaknesses[element] = (weaknesses[element] || 0) + 2;
+      } else if ((TYPE_CHART[element])[order] === 0.5) {
+        weaknesses[element] = (weaknesses[element] || 0) *.5;
+      } else if ((TYPE_CHART[element])[order] === 0) {
+        weaknesses[element] = (weaknesses[element] || 0) *0;
+      };
+    });
+  });
+  return weaknesses;
 }
 
 interface typeEntry {
@@ -57,12 +73,14 @@ const pokemonTypeHandler: RequestHandler = async (req, res) => {
       return entry.type.name;
     })
     console.log('name, types', pokeData.name, types);
+    let sortedWeak = sortWeakness(types);
+    console.log('sortedWeak', sortedWeak);
     let returnType = {
       id: pokeData.id,
       name: pokeData.name,
       types: types
     };
-    res.json(returnType);
+    res.json(sortedWeak);
   } catch (err){console.log('type err', err);}
 };
 

@@ -17,6 +17,7 @@ const body_parser_1 = __importDefault(require("body-parser"));
 const cors_1 = __importDefault(require("cors"));
 const request_promise_1 = __importDefault(require("request-promise"));
 const morgan_1 = __importDefault(require("morgan"));
+const typeChart_1 = require("./typeChart");
 const app = express_1.default();
 const PORT = process.env.PORT || 8000;
 const random = (min, max) => {
@@ -39,6 +40,26 @@ const pokemonHandler = (req, res) => __awaiter(void 0, void 0, void 0, function*
     };
     res.json(returnPoke);
 });
+;
+const sortWeakness = (types) => {
+    let weaknesses = {};
+    types.forEach(entry => {
+        let order = typeChart_1.TYPE_ORDER[entry];
+        typeChart_1.TYPES.forEach(element => {
+            if ((typeChart_1.TYPE_CHART[element])[order] === 2) {
+                weaknesses[element] = (weaknesses[element] || 0) + 2;
+            }
+            else if ((typeChart_1.TYPE_CHART[element])[order] === 0.5) {
+                weaknesses[element] = (weaknesses[element] || 0) * .5;
+            }
+            else if ((typeChart_1.TYPE_CHART[element])[order] === 0) {
+                weaknesses[element] = (weaknesses[element] || 0) * 0;
+            }
+            ;
+        });
+    });
+    return weaknesses;
+};
 const pokemonTypeHandler = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { name } = req.params;
     try {
@@ -47,13 +68,15 @@ const pokemonTypeHandler = (req, res) => __awaiter(void 0, void 0, void 0, funct
         let types = pokeData.types.map((entry) => {
             return entry.type.name;
         });
-        console.log('types', types);
+        console.log('name, types', pokeData.name, types);
+        let sortedWeak = sortWeakness(types);
+        console.log('sortedWeak', sortedWeak);
         let returnType = {
             id: pokeData.id,
             name: pokeData.name,
             types: types
         };
-        res.json(returnType);
+        res.json(sortedWeak);
     }
     catch (err) {
         console.log('type err', err);
