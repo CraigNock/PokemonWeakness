@@ -1,5 +1,5 @@
 {
-  "name": "PokemonWeakness",
+  "name": "pokemonweakness",
   "version": "1.0.0",
   "description": "Pokemon Weakness app",
   "main": "/client/public/index.html",
