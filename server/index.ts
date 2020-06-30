@@ -3,7 +3,8 @@ import express, { RequestHandler } from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import request from 'request-promise';
-
+import morgan from 'morgan';
+import { TYPES, TYPE_ORDER, TYPE_CHART } from './typeChart';
 
 const app: express.Application = express();
 const PORT = process.env.PORT || 8000;
@@ -16,7 +17,6 @@ const random = (min: number, max: number): number => {
 };
 
 const pokemonHandler: RequestHandler = async (req, res) => {
-  console.log('beef');
   let pokeData = await request('https://pokeapi.co/api/v2/gender/1/');
   pokeData = JSON.parse(pokeData);
   let randomPoke = random(0, 683);
@@ -33,14 +33,44 @@ const pokemonHandler: RequestHandler = async (req, res) => {
   };
   res.json(returnPoke);
 
+};
+
+const sortWeakness = (types: string[]) => {
+  
+  return
 }
 
-
+interface typeEntry {
+  slot: number,
+  type: {
+    name: string,
+    url: string,
+  },
+}
+const pokemonTypeHandler: RequestHandler = async (req, res) => {
+  const { name } = req.params;
+  try {
+    let pokeData = await request(`https://pokeapi.co/api/v2/pokemon/${name}/`);
+    pokeData = JSON.parse(pokeData);
+    // console.log('pokeData', pokeData);
+    let types = pokeData.types.map((entry: typeEntry) => {
+      return entry.type.name;
+    })
+    console.log('name, types', pokeData.name, types);
+    let returnType = {
+      id: pokeData.id,
+      name: pokeData.name,
+      types: types
+    };
+    res.json(returnType);
+  } catch (err){console.log('type err', err);}
+};
 
 
 //or without body-parser (may be built into express depending on version):> app.use(express.json()) does same thing;
 app.use(bodyParser.json()); 
 app.use(cors());
+app.use(morgan('tiny'));
 // may not need following if using cors
 app.use(function(req : express.Request , res : express.Response, next : express.NextFunction) {
   res.header('Access-Control-Allow-Origin', '*' );
@@ -54,6 +84,7 @@ app.get('/', (req, res) => {
   res.send('hello there');
 });
 app.get('/pokemon', pokemonHandler);
+app.get('/pokemon/:name', pokemonTypeHandler);
 
 
 app.listen(PORT, ()=>{console.log(`Listening on Porto ${PORT}`);});
