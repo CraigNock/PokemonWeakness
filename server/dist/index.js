@@ -47,13 +47,13 @@ const sortWeakness = (types) => {
         let order = typeChart_1.TYPE_ORDER[entry];
         typeChart_1.TYPES.forEach(element => {
             if ((typeChart_1.TYPE_CHART[element])[order] === 2) {
-                weaknesses[element] = (weaknesses[element] || 0) + 2;
+                weaknesses[element] = (weaknesses[element] || 1) * 2;
             }
             else if ((typeChart_1.TYPE_CHART[element])[order] === 0.5) {
-                weaknesses[element] = (weaknesses[element] || 0) * .5;
+                weaknesses[element] = (weaknesses[element] || 1) * .5;
             }
             else if ((typeChart_1.TYPE_CHART[element])[order] === 0) {
-                weaknesses[element] = (weaknesses[element] || 0) * 0;
+                weaknesses[element] = (weaknesses[element] || 1) * 0;
             }
             ;
         });

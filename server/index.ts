@@ -45,11 +45,11 @@ const sortWeakness = (types: string[]) => {
     let order = TYPE_ORDER[entry];
     TYPES.forEach(element => {
       if ((TYPE_CHART[element])[order] === 2) {
-        weaknesses[element] = (weaknesses[element] || 0) + 2;
+        weaknesses[element] = (weaknesses[element] || 1) *2;
       } else if ((TYPE_CHART[element])[order] === 0.5) {
-        weaknesses[element] = (weaknesses[element] || 0) *.5;
+        weaknesses[element] = (weaknesses[element] || 1) *.5;
       } else if ((TYPE_CHART[element])[order] === 0) {
-        weaknesses[element] = (weaknesses[element] || 0) *0;
+        weaknesses[element] = (weaknesses[element] || 1) *0;
       };
     });
   });
@@ -78,9 +78,9 @@ const pokemonTypeHandler: RequestHandler = async (req, res) => {
     let returnType = {
       id: pokeData.id,
       name: pokeData.name,
-      types: types
+      types: sortedWeak
     };
-    res.json(sortedWeak);
+    res.json(returnType);
   } catch (err){console.log('type err', err);}
 };
 
