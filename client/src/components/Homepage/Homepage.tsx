@@ -1,58 +1,92 @@
-import React, { useState, PropsWithChildren } from 'react';
+import React, { useState, useEffect, PropsWithChildren } from 'react';
 import styled from 'styled-components';
+import Suggestions from './Suggestions';
+import WeakDisplay from './WeakDisplay';
 
 interface props {
 
 };
+
+interface numObject {
+  [key: string]: number
+};
 interface pokeInfo {
+  id: number,
   name: string,
-  color: string,
-  eggGroup: string,
-  [key: string]: string,
+  types: numObject,
 }
+
+
 const Homepage : React.FC<PropsWithChildren<props>> = () => {
 
-
+  const [disable, setDisable] = useState<boolean>(false);
+  const [inputVal, setInputVal] = useState<string>('');
+  const [suggestArr, setSuggestArr] = useState<string[]>([]);
 
   const [pokemon, setPokemon] = useState<pokeInfo|null>(null);
+  const [errorMsg, setErrorMsg] = useState<string>('');
 
-    const buttonHandle = () => {
-        fetch('http://localhost:8000/pokemon'
-        , {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(data => data.json())
-        .then(data => {
-            console.log('data', data);
-            setPokemon(data);
-        })
+  useEffect(()=> {
+    if (inputVal.length < 2) {
+      setSuggestArr([]);
+      return;
     }
+
+  }, [inputVal])
+
+
+
+  const submitHandle = () => {
+    console.log('inputVal', inputVal);
+    fetch(`http://localhost:8000/pokemon/${inputVal}`
+    , {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(data => data.json())
+    .then(data => {
+      console.log('data', data);
+      data.status !== 200? 
+        setErrorMsg('Pokemon not found')
+        : setPokemon(data);
+      setDisable(false);
+    })
+  }
 
   return (
     <StyledDiv> 
-      {pokemon? 
-      <>
       <div> Greetings </div>
-        <div>
-            <p>Name: {(pokemon && pokemon.name) || 'name'}</p>
-            <p>Color: {(pokemon && pokemon.color) || 'color'}</p>
-            <p>Egg Group: {(pokemon && pokemon.eggGroup) || 'eggGroup'}</p>
-        </div>
-      <button
-        onClick={()=> buttonHandle()}
+
+      <StyledForm
       >
-        Press Me
-      </button>
-      </>
-    : 
-    <button onClick={()=> buttonHandle()}>
-      Press Me
-    </button>
-    }
+        <SearchBox>
+          <StyledInput 
+            type="text"
+            onChange={(e)=>setInputVal(e.target.value)}
+            value={inputVal}
+          />
+          <SuggestDiv>
+            <Suggestions suggestArr={suggestArr} inputVal={inputVal}/>
+          </SuggestDiv>
+        </SearchBox>
+        <StyledButton
+          type='submit'
+          onClick={()=>{
+            submitHandle();
+            setDisable(true);
+          }}
+          disabled={disable}
+        >
+          Get Weaknesses!
+        </StyledButton>
+      </StyledForm>
+      <p>{errorMsg}</p>
+      <div>{pokemon && pokemon.id}</div>
+      <div>{pokemon && pokemon.name}</div>
+      <div>{pokemon && pokemon.types? <WeakDisplay beef={pokemon.types}/>: ''}</div>
     </StyledDiv> 
   ) 
 }; 
@@ -66,6 +100,31 @@ const StyledDiv = styled.div`
       flex-direction: column;
       align-items: center;
   }
+`;
+const StyledForm=styled.form`
+  width: 90%;
+  display: flex;
+  justify-content: center;
+`;
+const SearchBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin: 0 1rem;
+`;
+const StyledInput = styled.input`
+  width: 100%;
+  border: none;
+  box-sizing: border-box;
+  margin: 0;
+`;
+const SuggestDiv= styled.div`
+  position: relative;
+  width: 100%;
+`;
+const StyledButton = styled.button`
+  font-size: .75rem;
 `;
 
 export default Homepage;

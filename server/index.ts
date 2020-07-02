@@ -4,7 +4,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import request from 'request-promise';
 import morgan from 'morgan';
-import { TYPES, TYPE_ORDER, TYPE_CHART } from './typeChart';
+import { TYPES, TYPE_ORDER, TYPE_CHART, ALL_NAMES } from './typeChart';
 
 const app: express.Application = express();
 const PORT = process.env.PORT || 8000;
@@ -32,16 +32,15 @@ const pokemonHandler: RequestHandler = async (req, res) => {
     eggGroup: pokeColor.egg_groups[0].name
   };
   res.json(returnPoke);
-
 };
 
 interface objectThing {
   [key: string]: number
 };
 
-const sortWeakness = (types: string[]) => {
+const sortWeakness = (typearr: string[]) => {
   let weaknesses: objectThing = {};
-  types.forEach(entry => {
+  typearr.forEach(entry => {
     let order = TYPE_ORDER[entry];
     TYPES.forEach(element => {
       if ((TYPE_CHART[element])[order] === 2) {
@@ -65,23 +64,30 @@ interface typeEntry {
 }
 const pokemonTypeHandler: RequestHandler = async (req, res) => {
   const { name } = req.params;
-  try {
-    let pokeData = await request(`https://pokeapi.co/api/v2/pokemon/${name}/`);
-    pokeData = JSON.parse(pokeData);
-    // console.log('pokeData', pokeData);
-    let types = pokeData.types.map((entry: typeEntry) => {
-      return entry.type.name;
-    })
-    console.log('name, types', pokeData.name, types);
-    let sortedWeak = sortWeakness(types);
-    console.log('sortedWeak', sortedWeak);
-    let returnType = {
-      id: pokeData.id,
-      name: pokeData.name,
-      types: sortedWeak
-    };
-    res.json(returnType);
-  } catch (err){console.log('type err', err);}
+  if (ALL_NAMES.indexOf(name.toLowerCase()) !== -1) {
+    try {
+      let pokeData = await request(`https://pokeapi.co/api/v2/pokemon/${name}/`);
+      pokeData = JSON.parse(pokeData);
+      // console.log('pokeData', pokeData);
+      let typearr: string[] = pokeData.types.map((entry: typeEntry) => {
+        return entry.type.name;
+      })
+      console.log('name, types', pokeData.name, typearr);
+      let sortedWeak = sortWeakness(typearr);
+      console.log('sortedWeak', sortedWeak);
+      let returnType = {
+        status: 200,
+        id: pokeData.id,
+        name: pokeData.name,
+        types: sortedWeak
+      };
+      res.json(returnType);
+    } catch (err){console.log('type err', err);}
+  } else {
+    res.json({
+      status: 404,
+    });
+  };
 };
 
 
@@ -99,7 +105,7 @@ app.use(function(req : express.Request , res : express.Response, next : express.
 );
 
 app.get('/', (req, res) => {
-  res.send('hello there');
+  res.send('hi');
 });
 app.get('/pokemon', pokemonHandler);
 app.get('/pokemon/:name', pokemonTypeHandler);

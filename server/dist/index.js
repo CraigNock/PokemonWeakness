@@ -62,25 +62,34 @@ const sortWeakness = (types) => {
 };
 const pokemonTypeHandler = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { name } = req.params;
-    try {
-        let pokeData = yield request_promise_1.default(`https://pokeapi.co/api/v2/pokemon/${name}/`);
-        pokeData = JSON.parse(pokeData);
-        let types = pokeData.types.map((entry) => {
-            return entry.type.name;
+    if (typeChart_1.ALL_NAMES.indexOf(name.toLowerCase()) !== -1) {
+        try {
+            let pokeData = yield request_promise_1.default(`https://pokeapi.co/api/v2/pokemon/${name}/`);
+            pokeData = JSON.parse(pokeData);
+            let types = pokeData.types.map((entry) => {
+                return entry.type.name;
+            });
+            console.log('name, types', pokeData.name, types);
+            let sortedWeak = sortWeakness(types);
+            console.log('sortedWeak', sortedWeak);
+            let returnType = {
+                status: 200,
+                id: pokeData.id,
+                name: pokeData.name,
+                types: sortedWeak
+            };
+            res.json(returnType);
+        }
+        catch (err) {
+            console.log('type err', err);
+        }
+    }
+    else {
+        res.json({
+            status: 404,
         });
-        console.log('name, types', pokeData.name, types);
-        let sortedWeak = sortWeakness(types);
-        console.log('sortedWeak', sortedWeak);
-        let returnType = {
-            id: pokeData.id,
-            name: pokeData.name,
-            types: types
-        };
-        res.json(sortedWeak);
     }
-    catch (err) {
-        console.log('type err', err);
-    }
+    ;
 });
 app.use(body_parser_1.default.json());
 app.use(cors_1.default());
@@ -92,7 +101,7 @@ app.use(function (req, res, next) {
     next();
 });
 app.get('/', (req, res) => {
-    res.send('hello there');
+    res.send('hi');
 });
 app.get('/pokemon', pokemonHandler);
 app.get('/pokemon/:name', pokemonTypeHandler);
