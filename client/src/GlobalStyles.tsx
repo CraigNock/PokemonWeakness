@@ -37,7 +37,7 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
-  background-color: black;
+  background-color: #2b2d2f;
 	/* width: 100%; */
 }
 ol, ul {

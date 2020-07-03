@@ -19,6 +19,7 @@ const WeakDisplay : React.FC<PropsWithChildren<props>> = ({weaks}) => {
   let resistances: string[] = [];
 
   weakKeys.forEach(name => {
+    if (weaks[name] === 1) return;
     (weaks[name]>1)? weaknesses.push(name) 
     : (weaks[name] > 0 && weaks[name] < 1)? resistances.push(name)
     : immunities.push(name);
@@ -95,6 +96,13 @@ const Display = styled.p`
   padding: .3rem;
   border-radius: 5px;
   font-family: 'Orbitron', sans-serif;
+  color: white;
+  text-shadow: 
+    0 1px 0 black, 
+    0 0 1px rgba(0, 0, 0, 0.3), 
+    0 0 2px rgba(0, 0, 0, 0.4), 
+    0 0 3px rgba(0, 0, 0, 0.5), 
+    0 0 4px rgba(0, 0, 0, 0.6);
   span{
     font-weight: bold;
     font-family: 'Orbitron', sans-serif;
@@ -106,6 +114,7 @@ const Subheader = styled.p`
   padding: .2rem;
   margin: .2rem auto;
   /* font-size: 1.1rem; */
+  /* font-weight: bold; */
   border: 2px solid maroon;
   border-radius: 5px;
   background: lightgray;

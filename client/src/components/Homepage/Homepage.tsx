@@ -134,7 +134,7 @@ const Homepage : React.FC<PropsWithChildren<props>> = () => {
 const StyledDiv = styled.div`
   width: 100%;
   /* max-width: 400px; */
-  height: 50vh;
+  height: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -149,6 +149,7 @@ const Title = styled.h1`
   font-size: 1.5rem;
   font-family: 'Bangers', cursive;
   color: white;
+
   background: black;
   /* border-radius: 15px; */
   /* border: 2px solid white; */
@@ -198,6 +199,12 @@ const StyledButton = styled.button`
   font-size: 1.2rem;
   font-family: 'Bangers', cursive;
   color: whitesmoke;
+  text-shadow: 
+    0 1px 0 black, 
+    0 0 1px rgba(0, 0, 0, 0.6), 
+    0 0 2px rgba(0, 0, 0, 0.7), 
+    0 0 3px rgba(0, 0, 0, 0.8), 
+    0 0 4px rgba(0, 0, 0, 0.9);
   background: red;
   border: 3px solid black;
   border-radius: 7px 7px 0 0;
