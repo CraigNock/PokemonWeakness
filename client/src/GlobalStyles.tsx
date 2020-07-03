@@ -3,7 +3,7 @@ import {createGlobalStyle} from 'styled-components';
 const Global = createGlobalStyle`
 
 html, body {
-  max-width: 100vw;
+  /* max-width: 100vw; */
 	/* width: 100vw; */
 	/* height: 100vh; */
 }
@@ -37,7 +37,8 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
-  background-color: lightgray;
+  background-color: black;
+	/* width: 100%; */
 }
 ol, ul {
 	list-style: none;

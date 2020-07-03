@@ -2,7 +2,7 @@ import React, { useState, useEffect, PropsWithChildren } from 'react';
 import styled from 'styled-components';
 import Suggestions from './Suggestions';
 import WeakDisplay from './WeakDisplay';
-import { ALL_NAMES } from '../../utils';
+import { ALL_NAMES, COLORS } from '../../utils';
 
 interface props {
 
@@ -18,7 +18,6 @@ interface pokeInfo {
   weaknesses: numObject
 }
 
-
 const Homepage : React.FC<PropsWithChildren<props>> = () => {
 
   const [disable, setDisable] = useState<boolean>(false);
@@ -26,7 +25,7 @@ const Homepage : React.FC<PropsWithChildren<props>> = () => {
   const [suggestArr, setSuggestArr] = useState<string[] | null>(null);
 
   const [pokemon, setPokemon] = useState<pokeInfo|null>(null);
-  const [errorMsg, setErrorMsg] = useState<string>('');
+  const [errorMsg, setErrorMsg] = useState<string|null>(null);
 
   useEffect(()=> {
     if (inputVal.length < 2) {
@@ -59,7 +58,7 @@ const Homepage : React.FC<PropsWithChildren<props>> = () => {
       // console.log('data', data);
       if(data.status === 200){
         setPokemon(data);
-        setErrorMsg('');
+        setErrorMsg(null);
       } else { 
         setErrorMsg('Pokemon not found');
       }
@@ -67,9 +66,22 @@ const Homepage : React.FC<PropsWithChildren<props>> = () => {
     })
   }
 
+  const testweak = {
+    fire: 0.5,
+    water: 2,
+    grass: 0.5,
+    ice: 0.5,
+    ground: 2,
+    bug: 0.5,
+    rock: 2,
+    steel: 0.5
+  }
+
   return (
     <>
-    <StyledDiv> 
+    <StyledDiv
+      style={{background: pokemon? COLORS[pokemon['types'][0]] : 'maroon'}}
+    > 
       <Title>Pokemon Weakness Finder</Title>
 
       <StyledForm
@@ -101,46 +113,48 @@ const Homepage : React.FC<PropsWithChildren<props>> = () => {
         
       </StyledForm>
       
-      <ErrorMessage>{errorMsg}</ErrorMessage>
+      {errorMsg && <ErrorMessage>{errorMsg}</ErrorMessage>}
       {pokemon && pokemon.weaknesses?
-      <div>
+      <InfoDisplayDiv>
         <Info>
           <p>{pokemon && `#${pokemon.id} ${pokemon.name.toUpperCase()}`}</p>
         </Info>
         <WeakDisplay weaks={pokemon.weaknesses}/>
-      </div>
+      </InfoDisplayDiv>
         : ''}
+      {/* <WeakDisplay weaks={testweak}/> */}
     </StyledDiv> 
-    <BottomDiv></BottomDiv>
+    <BottomDiv
+      style={{background: pokemon? (COLORS[pokemon['types'][1]] || COLORS[pokemon['types'][0]]) : 'lightgray'}}
+    ></BottomDiv>
     </>
   ) 
 }; 
 
 const StyledDiv = styled.div`
-  /* width: 100%; */
+  width: 100%;
   /* max-width: 400px; */
   height: 50vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  div {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-  }
-  background: maroon;
+  /* background: maroon; */
 `;
 const Title = styled.h1`
-  width: 90%;
-  margin: .5rem 0 .75rem;
-  padding: .5rem;
+  width: 100%;
+  margin: 0 0 .5rem 0;
+  padding: .3rem .5rem;
+  box-sizing: border-box;
   text-align: center;
   font-size: 1.5rem;
   font-family: 'Bangers', cursive;
   color: white;
   background: black;
-  border-radius: 15px;
-  border: 2px solid white;
+  /* border-radius: 15px; */
+  /* border: 2px solid white; */
+  /* border-top: none; */
+  border-bottom: 2px solid white;
+  border-top: 2px solid white; 
 `;
 const StyledForm=styled.form`
   width: 90%;
@@ -149,6 +163,7 @@ const StyledForm=styled.form`
   /* justify-content: center; */
   align-items: center;
   padding: .5rem;
+  margin: 0 0 .25rem 0;
   background: whitesmoke;
   border-radius: 15px;
 `;
@@ -157,7 +172,6 @@ const SearchBox = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  /* margin: 0 1rem; */
 `;
 const StyledInput = styled.input`
   width: 100%;
@@ -195,22 +209,30 @@ const ErrorMessage = styled.p`
   margin: .25rem;
   color: whitesmoke;
 `;
+const InfoDisplayDiv = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+`;
 const Info = styled.div`
-  margin: .25rem 0 .25rem 0;
-  padding: 1rem;
+  margin:  0;
+  padding: .3rem .5rem;
   background: white;
   border-radius: 10px;
+  border: 2px solid black;
   p {
     font-size: 1rem;
     font-weight: bold;
     font-family: 'Orbitron', sans-serif;
-
+    
   }
 `;
 const BottomDiv = styled.div`
   width: 100%;
   height: 50%;
-  background: gray;
+  /* background: lightgray; */
 `;
 
 export default Homepage;

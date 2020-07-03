@@ -12,10 +12,22 @@ interface props {
 const WeakDisplay : React.FC<PropsWithChildren<props>> = ({weaks}) => {
 
   let weakKeys: string[] = Object.keys(weaks);
-  let weakValues: number[] = Object.values(weaks);
-  return (
-    <Wrapper>
-      {weakKeys && weakKeys.map((name, id) => {
+  weakKeys.sort((a, b) => {return -(weaks[a] - weaks[b])});
+  
+  let weaknesses: string[] = [];
+  let immunities: string[] = [];
+  let resistances: string[] = [];
+
+  weakKeys.forEach(name => {
+    (weaks[name]>1)? weaknesses.push(name) 
+    : (weaks[name] > 0 && weaks[name] < 1)? resistances.push(name)
+    : immunities.push(name);
+  })
+  // console.log('weaknesses', weaknesses);
+  return ( <>
+    {weaknesses.length? <Wrapper>
+    <Subheader>Weak to:</Subheader>
+      {weakKeys && weaknesses.map((name, id) => {
         return (
           <Display
             key={id}
@@ -27,25 +39,75 @@ const WeakDisplay : React.FC<PropsWithChildren<props>> = ({weaks}) => {
         )
       })}
     </Wrapper>
+    : ''}
+    {immunities.length? <Wrapper>
+    <Subheader>Immune to:</Subheader>
+      {weakKeys && immunities.map((name, id) => {
+        return (
+          <Display
+            key={id}
+            style={{background: COLORS[name]}}
+          >
+            {name.toUpperCase()} 
+            <span> x{weaks[name]}</span>
+          </Display>
+        )
+      })}
+    </Wrapper>
+    : ''}
+    {resistances.length? <Wrapper>
+      <Subheader>Resistant to:</Subheader>
+      {weakKeys && resistances.map((name, id) => {
+        return (
+          <Display
+            key={id}
+            style={{background: COLORS[name]}}
+          >
+            {name.toUpperCase()} 
+            <span> x{weaks[name]}</span>
+          </Display>
+        )
+      })}
+    </Wrapper>
+    : ''}
+    </>
   )
 }
 
 export default WeakDisplay;
 
 const Wrapper = styled.div`
-  /* width: 50%; */
-  margin: .5rem;
-  padding: 1rem;
-  background: white;
+  /* width: 100%; */
+  width: 80%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin: .2rem .5rem;
+  padding: .25rem .5rem .5rem .5rem;
+  background: whitesmoke;
   border-radius: 10px;
+  font-family: 'Orbitron', sans-serif;
 `;
 const Display = styled.p`
-  font-size: 1rem;
-  padding: .2rem;
+  font-size: .8rem;
+  margin: .2rem;
+  padding: .3rem;
   border-radius: 5px;
   font-family: 'Orbitron', sans-serif;
   span{
     font-weight: bold;
     font-family: 'Orbitron', sans-serif;
   }
+`;
+const Subheader = styled.p`
+  width: 100%;
+  text-align: center;
+  padding: .2rem;
+  margin: .2rem auto;
+  /* font-size: 1.1rem; */
+  border: 2px solid maroon;
+  border-radius: 5px;
+  background: lightgray;
+  
 `;
