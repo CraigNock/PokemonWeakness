@@ -14,7 +14,8 @@ interface numObject {
 interface pokeInfo {
   id: number,
   name: string,
-  types: numObject,
+  types: string[],
+  weaknesses: numObject
 }
 
 
@@ -102,7 +103,11 @@ const Homepage : React.FC<PropsWithChildren<props>> = () => {
       <p>{errorMsg}</p>
       <div>{pokemon && `#${pokemon.id}`}</div>
       <div>{pokemon && pokemon.name.toUpperCase()}</div>
-      <div>{pokemon && pokemon.types? <WeakDisplay weaks={pokemon.types}/>: ''}</div>
+      <div>
+        {pokemon && pokemon.weaknesses? 
+        <WeakDisplay weaks={pokemon.weaknesses}/>
+        : ''}
+      </div>
     </StyledDiv> 
   ) 
 }; 
