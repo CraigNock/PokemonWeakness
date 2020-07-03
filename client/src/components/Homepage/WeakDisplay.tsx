@@ -27,7 +27,7 @@ const WeakDisplay : React.FC<PropsWithChildren<props>> = ({weaks}) => {
   // console.log('weaknesses', weaknesses);
   return ( <>
     {weaknesses.length? <Wrapper>
-    <Subheader>Weak to:</Subheader>
+    <Subheader>Weaknesses:</Subheader>
       {weakKeys && weaknesses.map((name, id) => {
         return (
           <Display
@@ -42,7 +42,7 @@ const WeakDisplay : React.FC<PropsWithChildren<props>> = ({weaks}) => {
     </Wrapper>
     : ''}
     {immunities.length? <Wrapper>
-    <Subheader>Immune to:</Subheader>
+    <Subheader>Immunities:</Subheader>
       {weakKeys && immunities.map((name, id) => {
         return (
           <Display
@@ -57,7 +57,7 @@ const WeakDisplay : React.FC<PropsWithChildren<props>> = ({weaks}) => {
     </Wrapper>
     : ''}
     {resistances.length? <Wrapper>
-      <Subheader>Resistant to:</Subheader>
+      <Subheader>Resistances:</Subheader>
       {weakKeys && resistances.map((name, id) => {
         return (
           <Display

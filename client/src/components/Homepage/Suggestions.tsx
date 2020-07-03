@@ -15,7 +15,7 @@ const Suggestions : React.FC<props> = ({suggestArr, inputVal, setInputVal, submi
       {suggestArr && (suggestArr.length)? 
       suggestArr.map((name:string, id: number) => {
         if (id < 11)
-        return <StyledLi 
+        return <StyledP 
         key={id}
         onClick={(e)=>{
           e.preventDefault();
@@ -23,8 +23,17 @@ const Suggestions : React.FC<props> = ({suggestArr, inputVal, setInputVal, submi
           submitHandle(name);
         }}
         >
-          {name}
-        </StyledLi>
+          <span>
+            {name.slice(0, name.toLowerCase().indexOf(inputVal.toLowerCase()))}
+          </span>
+          <span className="bold">
+            {name.slice(name.toLowerCase().indexOf(inputVal.toLowerCase()),
+            name.toLowerCase().indexOf(inputVal.toLowerCase()) + inputVal.length)}
+          </span>
+          <span>
+            {name.slice((name.toLowerCase().indexOf(inputVal.toLowerCase())) + inputVal.length)}
+          </span>
+        </StyledP>
       }) : ''}
       
       
@@ -42,14 +51,17 @@ const Wrapper = styled.div`
   background: whitesmoke;
   border-radius: 5px;
 `;
-const StyledLi = styled.p`
+const StyledP = styled.p`
   width:100%;
   font-family: 'Orbitron', sans-serif;
   text-align: center;
-  padding: .1rem 0;
+  padding: .2rem 0;
   border-radius: 5px;
   &:hover {
     background: white;
     cursor: pointer;
+  }
+  .bold {
+    font-weight: bold;
   }
 `;

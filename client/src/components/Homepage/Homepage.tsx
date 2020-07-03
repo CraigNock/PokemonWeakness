@@ -64,11 +64,15 @@ const Homepage : React.FC<PropsWithChildren<props>> = () => {
         if(data.status === 200){
           setPokemon(data);
           setErrorMsg(null);
+          setInputVal('');
         } else { 
           setErrorMsg('Pokemon not found');
+          setPokemon(null);
         }
-        setInputVal('');
         setDisable(false);
+      }).catch(err=>{
+        console.log('fetch err', err);
+        setErrorMsg('Server Unavailable');
       })
     }
   }
@@ -108,7 +112,7 @@ const Homepage : React.FC<PropsWithChildren<props>> = () => {
             type="text"
             onChange={(e)=>setInputVal(e.target.value)}
             value={inputVal}
-            placeholder={'Bulbasaur'}
+            placeholder={'Enter Pokemon'}
           />
           <ClearButton
             onClick={()=>setInputVal('')}
@@ -220,6 +224,9 @@ const ClearButton = styled.div`
   font-weight: bold;
   overflow: hidden;
   /* box-sizing: border-box; */
+  &:hover {
+    cursor: pointer;
+  }
 `;
 const SuggestDiv= styled.div`
   position: relative;
@@ -251,7 +258,7 @@ const StyledButton = styled.button`
 const ErrorMessage = styled.p`
   margin: .25rem;
   padding: .1rem .2rem;
-  font-size: .5rem;
+  font-size: .75rem;
   color: orange;
   font-family: 'Orbitron', sans-serif;
   background: whitesmoke;
