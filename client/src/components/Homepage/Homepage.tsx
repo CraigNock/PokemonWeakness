@@ -44,7 +44,7 @@ const Homepage : React.FC<PropsWithChildren<props>> = () => {
 
 
   const submitHandle = (): void => {
-    console.log('inputVal', inputVal);
+    // console.log('inputVal', inputVal);
     setSuggestArr(null);
     fetch(`http://localhost:8000/pokemon/${inputVal}`
     , {
@@ -56,7 +56,7 @@ const Homepage : React.FC<PropsWithChildren<props>> = () => {
     })
     .then(data => data.json())
     .then(data => {
-      console.log('data', data);
+      // console.log('data', data);
       if(data.status === 200){
         setPokemon(data);
         setErrorMsg('');
@@ -99,22 +99,25 @@ const Homepage : React.FC<PropsWithChildren<props>> = () => {
         </SearchBox>
         
       </StyledForm>
-          
-      <p>{errorMsg}</p>
-      <div>{pokemon && `#${pokemon.id}`}</div>
-      <div>{pokemon && pokemon.name.toUpperCase()}</div>
+      
+      <ErrorMessage>{errorMsg}</ErrorMessage>
+      {pokemon && pokemon.weaknesses?
       <div>
-        {pokemon && pokemon.weaknesses? 
+        <Info>
+          <p>{pokemon && `#${pokemon.id}`}</p>
+          <p>{pokemon && pokemon.name.toUpperCase()}</p>
+        </Info>
         <WeakDisplay weaks={pokemon.weaknesses}/>
-        : ''}
       </div>
+        : ''}
     </StyledDiv> 
   ) 
 }; 
 
 const StyledDiv = styled.div`
   /* width: 100%; */
-  height: 50vh;
+  /* max-width: 400px; */
+  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -162,6 +165,7 @@ const StyledInput = styled.input`
   &:focus {
     outline: none;
   }
+  font-family: 'Orbitron', sans-serif;
   text-align: center;
   padding: .3rem;
   border: 3px solid black;
@@ -181,6 +185,25 @@ const StyledButton = styled.button`
   background: red;
   border: 3px solid black;
   border-radius: 7px 7px 0 0;
+  &:hover{
+    cursor:pointer;
+  }
+`;
+const ErrorMessage = styled.p`
+  margin: .5rem;
+  color: whitesmoke;
+`;
+const Info = styled.div`
+  margin: 1rem 0 .5rem 0;
+  padding: 1rem;
+  background: white;
+  border-radius: 10px;
+  p {
+    font-size: 1rem;
+    font-weight: bold;
+    font-family: 'Orbitron', sans-serif;
+
+  }
 `;
 
 export default Homepage;

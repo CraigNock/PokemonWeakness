@@ -46,17 +46,18 @@ const pokemonTypeHandler = (req, res) => __awaiter(void 0, void 0, void 0, funct
         try {
             let pokeData = yield request_promise_1.default(`https://pokeapi.co/api/v2/pokemon/${name.toLowerCase()}/`);
             pokeData = JSON.parse(pokeData);
-            let typearr = pokeData.types.map((entry) => {
+            let typeArr = pokeData.types.map((entry) => {
                 return entry.type.name;
             });
-            console.log('name, types', pokeData.name, typearr);
-            let sortedWeak = sortWeakness(typearr);
+            console.log('name, types', pokeData.name, typeArr);
+            let sortedWeak = sortWeakness(typeArr);
             console.log('sortedWeak', sortedWeak);
             let returnType = {
                 status: 200,
                 id: pokeData.id,
                 name: pokeData.name,
-                types: sortedWeak
+                types: typeArr,
+                weaknesses: sortedWeak
             };
             res.json(returnType);
         }

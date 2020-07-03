@@ -17,13 +17,13 @@ const WeakDisplay : React.FC<PropsWithChildren<props>> = ({weaks}) => {
     <Wrapper>
       {weakKeys && weakKeys.map((name, id) => {
         return (
-          <p
+          <Display
             key={id}
             style={{background: COLORS[name]}}
           >
             {name.toUpperCase()} 
             <span> x{weaks[name]}</span>
-          </p>
+          </Display>
         )
       })}
     </Wrapper>
@@ -33,8 +33,19 @@ const WeakDisplay : React.FC<PropsWithChildren<props>> = ({weaks}) => {
 export default WeakDisplay;
 
 const Wrapper = styled.div`
-
+  /* width: 50%; */
+  margin: 1rem;
+  padding: 1rem;
+  background: white;
+  border-radius: 10px;
 `;
 const Display = styled.p`
-  
+  font-size: 1rem;
+  padding: .2rem;
+  border-radius: 5px;
+  font-family: 'Orbitron', sans-serif;
+  span{
+    font-weight: bold;
+    font-family: 'Orbitron', sans-serif;
+  }
 `;

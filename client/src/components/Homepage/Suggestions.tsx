@@ -35,10 +35,14 @@ const Wrapper = styled.div`
   left: 0;
   width: 100%;
   background: whitesmoke;
-  
+  border-radius: 5px;
 `;
 const StyledLi = styled.p`
   width:100%;
+  font-family: 'Orbitron', sans-serif;
+  text-align: center;
+  padding: .1rem 0;
+  border-radius: 5px;
   &:hover {
     background: white;
     cursor: pointer;
