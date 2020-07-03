@@ -6,9 +6,9 @@ interface numObject {
   [key: string]: number
 };
 interface props {
-  beef: numObject
+  weaks: numObject
 };
-const WeakDisplay : React.FC<PropsWithChildren<props>> = (beef) => {
+const WeakDisplay : React.FC<PropsWithChildren<props>> = (weaks) => {
 
   return (
     <Wrapper>

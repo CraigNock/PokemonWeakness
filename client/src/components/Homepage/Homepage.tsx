@@ -2,6 +2,7 @@ import React, { useState, useEffect, PropsWithChildren } from 'react';
 import styled from 'styled-components';
 import Suggestions from './Suggestions';
 import WeakDisplay from './WeakDisplay';
+import { ALL_NAMES } from '../../utils';
 
 interface props {
 
@@ -31,7 +32,12 @@ const Homepage : React.FC<PropsWithChildren<props>> = () => {
       setSuggestArr([]);
       return;
     }
-
+    let searchResults: string[] = ALL_NAMES.filter((name) => {
+      if (name.toLowerCase().includes(inputVal.toLowerCase())) {
+        return name;
+      }
+    });
+    setSuggestArr(searchResults);
   }, [inputVal])
 
 
@@ -86,7 +92,7 @@ const Homepage : React.FC<PropsWithChildren<props>> = () => {
       <p>{errorMsg}</p>
       <div>{pokemon && pokemon.id}</div>
       <div>{pokemon && pokemon.name}</div>
-      <div>{pokemon && pokemon.types? <WeakDisplay beef={pokemon.types}/>: ''}</div>
+      <div>{pokemon && pokemon.types? <WeakDisplay weaks={pokemon.types}/>: ''}</div>
     </StyledDiv> 
   ) 
 }; 

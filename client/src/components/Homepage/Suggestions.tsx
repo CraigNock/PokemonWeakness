@@ -5,10 +5,13 @@ interface props {
   suggestArr: string[],
   inputVal: string
 };
-const Suggestions : React.FC<PropsWithChildren<props>> = (suggestArr, inputVal) => {
+const Suggestions : React.FC<props> = (suggestArr: string[], inputVal) => {
 
   return (
     <Wrapper>
+      {suggestArr && (suggestArr.length > 0)? suggestArr.map((name, id) => {
+
+      } : ''}
       suggest
     </Wrapper>
   )
