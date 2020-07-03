@@ -42,28 +42,35 @@ const Homepage : React.FC<PropsWithChildren<props>> = () => {
 
 
 
-  const submitHandle = (): void => {
+  const submitHandle = (pokeName: string | null): void => {
     // console.log('inputVal', inputVal);
-    setSuggestArr(null);
-    fetch(`http://localhost:8000/pokemon/${inputVal}`
-    , {
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      }
-    })
-    .then(data => data.json())
-    .then(data => {
-      // console.log('data', data);
-      if(data.status === 200){
-        setPokemon(data);
-        setErrorMsg(null);
-      } else { 
-        setErrorMsg('Pokemon not found');
-      }
-      setDisable(false);
-    })
+    if (inputVal === '') {
+      setErrorMsg('Enter Pokemon name');
+      setPokemon(null);
+    } else {
+      setDisable(true);
+      setSuggestArr(null);
+      fetch(`http://localhost:8000/pokemon/${pokeName? pokeName: inputVal}`
+      , {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(data => data.json())
+      .then(data => {
+        // console.log('data', data);
+        if(data.status === 200){
+          setPokemon(data);
+          setErrorMsg(null);
+        } else { 
+          setErrorMsg('Pokemon not found');
+        }
+        setInputVal('');
+        setDisable(false);
+      })
+    }
   }
 
   const testweak = {
@@ -88,9 +95,9 @@ const Homepage : React.FC<PropsWithChildren<props>> = () => {
       >
         <StyledButton
           type='submit'
-          onClick={()=>{
-            submitHandle();
-            setDisable(true);
+          onClick={(e)=>{
+            e.preventDefault();
+            submitHandle(null);
           }}
           disabled={disable}
         >
@@ -103,11 +110,18 @@ const Homepage : React.FC<PropsWithChildren<props>> = () => {
             value={inputVal}
             placeholder={'Bulbasaur'}
           />
+          <ClearButton
+            onClick={()=>setInputVal('')}
+          >
+            X
+          </ClearButton>
           <SuggestDiv>
             <Suggestions 
             suggestArr={suggestArr} 
             inputVal={inputVal} 
-            setInputVal={setInputVal}/>
+            setInputVal={setInputVal}
+            submitHandle={submitHandle}
+            />
           </SuggestDiv>
         </SearchBox>
         
@@ -169,6 +183,7 @@ const StyledForm=styled.form`
   border-radius: 15px;
 `;
 const SearchBox = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -187,6 +202,24 @@ const StyledInput = styled.input`
   padding: .3rem;
   border: 3px solid black;
   border-radius: 0 0 7px 7px;
+`;
+const ClearButton = styled.div`
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: calc(.3rem + 3px);
+  right: 1rem;
+  width: .75rem;
+  height: .75rem;
+  border-radius: 50%;
+  background: maroon;
+  border: 2px solid maroon;
+  color: white;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: bold;
+  overflow: hidden;
+  /* box-sizing: border-box; */
 `;
 const SuggestDiv= styled.div`
   position: relative;
@@ -211,10 +244,18 @@ const StyledButton = styled.button`
   &:hover{
     cursor:pointer;
   }
+  &:disabled {
+    filter: grayscale(50%);
+  }
 `;
 const ErrorMessage = styled.p`
   margin: .25rem;
-  color: whitesmoke;
+  padding: .1rem .2rem;
+  font-size: .5rem;
+  color: orange;
+  font-family: 'Orbitron', sans-serif;
+  background: whitesmoke;
+  border-radius: 3px;
 `;
 const InfoDisplayDiv = styled.div`
   width: 100%;

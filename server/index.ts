@@ -72,9 +72,9 @@ const pokemonTypeHandler: RequestHandler = async (req, res) => {
       let typeArr: string[] = pokeData.types.map((entry: typeEntry) => {
         return entry.type.name;
       })
-      console.log('name, types', pokeData.name, typeArr);
+      // console.log('name, types', pokeData.name, typeArr);
       let sortedWeak = sortWeakness(typeArr);
-      console.log('sortedWeak', sortedWeak);
+      // console.log('sortedWeak', sortedWeak);
       let returnType = {
         status: 200,
         id: pokeData.id,

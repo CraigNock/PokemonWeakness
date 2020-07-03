@@ -21,7 +21,7 @@ const WeakDisplay : React.FC<PropsWithChildren<props>> = ({weaks}) => {
   weakKeys.forEach(name => {
     if (weaks[name] === 1) return;
     (weaks[name]>1)? weaknesses.push(name) 
-    : (weaks[name] > 0 && weaks[name] < 1)? resistances.push(name)
+    : (weaks[name] > 0 && weaks[name] < 1)? resistances.unshift(name)
     : immunities.push(name);
   })
   // console.log('weaknesses', weaknesses);

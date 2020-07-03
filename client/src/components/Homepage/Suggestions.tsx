@@ -4,9 +4,10 @@ import styled from 'styled-components';
 interface props {
   suggestArr: string[] | null,
   inputVal: string,
-  setInputVal: React.Dispatch<React.SetStateAction<string>>
+  setInputVal: React.Dispatch<React.SetStateAction<string>>,
+  submitHandle: (pokeName: string | null) => void
 };
-const Suggestions : React.FC<props> = ({suggestArr, inputVal, setInputVal}) => {
+const Suggestions : React.FC<props> = ({suggestArr, inputVal, setInputVal, submitHandle}) => {
 
   return (
     <Wrapper>
@@ -16,7 +17,11 @@ const Suggestions : React.FC<props> = ({suggestArr, inputVal, setInputVal}) => {
         if (id < 11)
         return <StyledLi 
         key={id}
-        onClick={()=>setInputVal(name)}
+        onClick={(e)=>{
+          e.preventDefault();
+          setInputVal(name);
+          submitHandle(name);
+        }}
         >
           {name}
         </StyledLi>
