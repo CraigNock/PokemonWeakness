@@ -68,6 +68,7 @@ const Homepage : React.FC<PropsWithChildren<props>> = () => {
   }
 
   return (
+    <>
     <StyledDiv> 
       <Title>Pokemon Weakness Finder</Title>
 
@@ -104,20 +105,21 @@ const Homepage : React.FC<PropsWithChildren<props>> = () => {
       {pokemon && pokemon.weaknesses?
       <div>
         <Info>
-          <p>{pokemon && `#${pokemon.id}`}</p>
-          <p>{pokemon && pokemon.name.toUpperCase()}</p>
+          <p>{pokemon && `#${pokemon.id} ${pokemon.name.toUpperCase()}`}</p>
         </Info>
         <WeakDisplay weaks={pokemon.weaknesses}/>
       </div>
         : ''}
     </StyledDiv> 
+    <BottomDiv></BottomDiv>
+    </>
   ) 
 }; 
 
 const StyledDiv = styled.div`
   /* width: 100%; */
   /* max-width: 400px; */
-  height: 100vh;
+  height: 50vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -130,7 +132,7 @@ const StyledDiv = styled.div`
 `;
 const Title = styled.h1`
   width: 90%;
-  margin: 1rem 0;
+  margin: .5rem 0 .75rem;
   padding: .5rem;
   text-align: center;
   font-size: 1.5rem;
@@ -155,7 +157,7 @@ const SearchBox = styled.div`
   flex-direction: column;
   align-items: center;
   width: 100%;
-  margin: 0 1rem;
+  /* margin: 0 1rem; */
 `;
 const StyledInput = styled.input`
   width: 100%;
@@ -190,11 +192,11 @@ const StyledButton = styled.button`
   }
 `;
 const ErrorMessage = styled.p`
-  margin: .5rem;
+  margin: .25rem;
   color: whitesmoke;
 `;
 const Info = styled.div`
-  margin: 1rem 0 .5rem 0;
+  margin: .25rem 0 .25rem 0;
   padding: 1rem;
   background: white;
   border-radius: 10px;
@@ -204,6 +206,11 @@ const Info = styled.div`
     font-family: 'Orbitron', sans-serif;
 
   }
+`;
+const BottomDiv = styled.div`
+  width: 100%;
+  height: 50%;
+  background: gray;
 `;
 
 export default Homepage;

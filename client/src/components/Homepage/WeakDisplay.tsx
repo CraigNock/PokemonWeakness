@@ -34,7 +34,7 @@ export default WeakDisplay;
 
 const Wrapper = styled.div`
   /* width: 50%; */
-  margin: 1rem;
+  margin: .5rem;
   padding: 1rem;
   background: white;
   border-radius: 10px;
