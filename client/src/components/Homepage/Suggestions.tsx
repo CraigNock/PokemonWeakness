@@ -2,17 +2,27 @@ import React, { PropsWithChildren } from 'react';
 import styled from 'styled-components';
 
 interface props {
-  suggestArr: string[],
-  inputVal: string
+  suggestArr: string[] | null,
+  inputVal: string,
+  setInputVal: React.Dispatch<React.SetStateAction<string>>
 };
-const Suggestions : React.FC<props> = (suggestArr: string[], inputVal) => {
+const Suggestions : React.FC<props> = ({suggestArr, inputVal, setInputVal}) => {
 
   return (
     <Wrapper>
-      {suggestArr && (suggestArr.length > 0)? suggestArr.map((name, id) => {
-
-      } : ''}
-      suggest
+      
+      {suggestArr && (suggestArr.length)? 
+      suggestArr.map((name:string, id: number) => {
+        if (id < 11)
+        return <StyledLi 
+        key={id}
+        onClick={()=>setInputVal(name)}
+        >
+          {name}
+        </StyledLi>
+      }) : ''}
+      
+      
     </Wrapper>
   )
 }
@@ -26,4 +36,11 @@ const Wrapper = styled.div`
   width: 100%;
   background: whitesmoke;
   
+`;
+const StyledLi = styled.p`
+  width:100%;
+  &:hover {
+    background: white;
+    cursor: pointer;
+  }
 `;

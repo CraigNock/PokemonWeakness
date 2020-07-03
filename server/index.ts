@@ -10,29 +10,29 @@ const app: express.Application = express();
 const PORT = process.env.PORT || 8000;
 
 
-const random = (min: number, max: number): number => {
-  let rand = Math.floor(Math.random()*(max-min) + min);
-  // console.log('rand', rand);
-  return rand;
-};
+// const random = (min: number, max: number): number => {
+//   let rand = Math.floor(Math.random()*(max-min) + min);
+//   // console.log('rand', rand);
+//   return rand;
+// };
 
-const pokemonHandler: RequestHandler = async (req, res) => {
-  let pokeData = await request('https://pokeapi.co/api/v2/gender/1/');
-  pokeData = JSON.parse(pokeData);
-  let randomPoke = random(0, 683);
-  // console.log('pokeData', pokeData);
-  let colorPath = pokeData.pokemon_species_details[randomPoke].pokemon_species.url;
-  console.log('pokemon_species_details', pokeData.pokemon_species_details.length);
-  let pokeColor = await request(`${colorPath}`);
-  pokeColor = JSON.parse(pokeColor);
-  console.log('pokeColor', pokeColor.color.name);
-  let returnPoke = {
-    name: pokeData.pokemon_species_details[randomPoke].pokemon_species.name,
-    color: pokeColor.color.name,
-    eggGroup: pokeColor.egg_groups[0].name
-  };
-  res.json(returnPoke);
-};
+// const pokemonHandler: RequestHandler = async (req, res) => {
+//   let pokeData = await request('https://pokeapi.co/api/v2/gender/1/');
+//   pokeData = JSON.parse(pokeData);
+//   let randomPoke = random(0, 683);
+//   // console.log('pokeData', pokeData);
+//   let colorPath = pokeData.pokemon_species_details[randomPoke].pokemon_species.url;
+//   console.log('pokemon_species_details', pokeData.pokemon_species_details.length);
+//   let pokeColor = await request(`${colorPath}`);
+//   pokeColor = JSON.parse(pokeColor);
+//   console.log('pokeColor', pokeColor.color.name);
+//   let returnPoke = {
+//     name: pokeData.pokemon_species_details[randomPoke].pokemon_species.name,
+//     color: pokeColor.color.name,
+//     eggGroup: pokeColor.egg_groups[0].name
+//   };
+//   res.json(returnPoke);
+// };
 
 interface objectThing {
   [key: string]: number
@@ -66,7 +66,7 @@ const pokemonTypeHandler: RequestHandler = async (req, res) => {
   const { name } = req.params;
   if (ALL_NAMES.indexOf(name.toLowerCase()) !== -1) {
     try {
-      let pokeData = await request(`https://pokeapi.co/api/v2/pokemon/${name}/`);
+      let pokeData = await request(`https://pokeapi.co/api/v2/pokemon/${name.toLowerCase()}/`);
       pokeData = JSON.parse(pokeData);
       // console.log('pokeData', pokeData);
       let typearr: string[] = pokeData.types.map((entry: typeEntry) => {
@@ -82,7 +82,12 @@ const pokemonTypeHandler: RequestHandler = async (req, res) => {
         types: sortedWeak
       };
       res.json(returnType);
-    } catch (err){console.log('type err', err);}
+    } catch (err){()=>{
+      console.log('type err', err);
+      res.json({
+        status: 404,
+      });
+  }}
   } else {
     res.json({
       status: 404,
@@ -107,7 +112,7 @@ app.use(function(req : express.Request , res : express.Response, next : express.
 app.get('/', (req, res) => {
   res.send('hi');
 });
-app.get('/pokemon', pokemonHandler);
+// app.get('/pokemon', pokemonHandler);
 app.get('/pokemon/:name', pokemonTypeHandler);
 
 

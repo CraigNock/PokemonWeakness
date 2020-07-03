@@ -20,30 +20,10 @@ const morgan_1 = __importDefault(require("morgan"));
 const typeChart_1 = require("./typeChart");
 const app = express_1.default();
 const PORT = process.env.PORT || 8000;
-const random = (min, max) => {
-    let rand = Math.floor(Math.random() * (max - min) + min);
-    return rand;
-};
-const pokemonHandler = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    let pokeData = yield request_promise_1.default('https://pokeapi.co/api/v2/gender/1/');
-    pokeData = JSON.parse(pokeData);
-    let randomPoke = random(0, 683);
-    let colorPath = pokeData.pokemon_species_details[randomPoke].pokemon_species.url;
-    console.log('pokemon_species_details', pokeData.pokemon_species_details.length);
-    let pokeColor = yield request_promise_1.default(`${colorPath}`);
-    pokeColor = JSON.parse(pokeColor);
-    console.log('pokeColor', pokeColor.color.name);
-    let returnPoke = {
-        name: pokeData.pokemon_species_details[randomPoke].pokemon_species.name,
-        color: pokeColor.color.name,
-        eggGroup: pokeColor.egg_groups[0].name
-    };
-    res.json(returnPoke);
-});
 ;
-const sortWeakness = (types) => {
+const sortWeakness = (typearr) => {
     let weaknesses = {};
-    types.forEach(entry => {
+    typearr.forEach(entry => {
         let order = typeChart_1.TYPE_ORDER[entry];
         typeChart_1.TYPES.forEach(element => {
             if ((typeChart_1.TYPE_CHART[element])[order] === 2) {
@@ -64,13 +44,13 @@ const pokemonTypeHandler = (req, res) => __awaiter(void 0, void 0, void 0, funct
     const { name } = req.params;
     if (typeChart_1.ALL_NAMES.indexOf(name.toLowerCase()) !== -1) {
         try {
-            let pokeData = yield request_promise_1.default(`https://pokeapi.co/api/v2/pokemon/${name}/`);
+            let pokeData = yield request_promise_1.default(`https://pokeapi.co/api/v2/pokemon/${name.toLowerCase()}/`);
             pokeData = JSON.parse(pokeData);
-            let types = pokeData.types.map((entry) => {
+            let typearr = pokeData.types.map((entry) => {
                 return entry.type.name;
             });
-            console.log('name, types', pokeData.name, types);
-            let sortedWeak = sortWeakness(types);
+            console.log('name, types', pokeData.name, typearr);
+            let sortedWeak = sortWeakness(typearr);
             console.log('sortedWeak', sortedWeak);
             let returnType = {
                 status: 200,
@@ -81,7 +61,12 @@ const pokemonTypeHandler = (req, res) => __awaiter(void 0, void 0, void 0, funct
             res.json(returnType);
         }
         catch (err) {
-            console.log('type err', err);
+            () => {
+                console.log('type err', err);
+                res.json({
+                    status: 404,
+                });
+            };
         }
     }
     else {
@@ -103,7 +88,6 @@ app.use(function (req, res, next) {
 app.get('/', (req, res) => {
     res.send('hi');
 });
-app.get('/pokemon', pokemonHandler);
 app.get('/pokemon/:name', pokemonTypeHandler);
 app.listen(PORT, () => { console.log(`Listening on Porto ${PORT}`); });
 //# sourceMappingURL=index.js.map

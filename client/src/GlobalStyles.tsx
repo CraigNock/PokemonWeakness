@@ -4,6 +4,8 @@ const Global = createGlobalStyle`
 
 html, body {
   max-width: 100vw;
+	/* width: 100vw; */
+	/* height: 100vh; */
 }
 
 /* http://meyerweb.com/eric/tools/css/reset/v2.0 | 20110126 License: none (public domain)*/
@@ -35,7 +37,7 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
-  background-color: #DAB785;
+  background-color: lightgray;
 }
 ol, ul {
 	list-style: none;

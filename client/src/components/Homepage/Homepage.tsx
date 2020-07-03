@@ -22,18 +22,18 @@ const Homepage : React.FC<PropsWithChildren<props>> = () => {
 
   const [disable, setDisable] = useState<boolean>(false);
   const [inputVal, setInputVal] = useState<string>('');
-  const [suggestArr, setSuggestArr] = useState<string[]>([]);
+  const [suggestArr, setSuggestArr] = useState<string[] | null>(null);
 
   const [pokemon, setPokemon] = useState<pokeInfo|null>(null);
   const [errorMsg, setErrorMsg] = useState<string>('');
 
   useEffect(()=> {
     if (inputVal.length < 2) {
-      setSuggestArr([]);
+      setSuggestArr(null);
       return;
     }
     let searchResults: string[] = ALL_NAMES.filter((name) => {
-      if (name.toLowerCase().includes(inputVal.toLowerCase())) {
+      if ((name !== inputVal.toLowerCase()) && name.toLowerCase().includes(inputVal.toLowerCase())) {
         return name;
       }
     });
@@ -42,8 +42,9 @@ const Homepage : React.FC<PropsWithChildren<props>> = () => {
 
 
 
-  const submitHandle = () => {
+  const submitHandle = (): void => {
     console.log('inputVal', inputVal);
+    setSuggestArr(null);
     fetch(`http://localhost:8000/pokemon/${inputVal}`
     , {
       method: 'GET',
@@ -55,29 +56,22 @@ const Homepage : React.FC<PropsWithChildren<props>> = () => {
     .then(data => data.json())
     .then(data => {
       console.log('data', data);
-      data.status !== 200? 
-        setErrorMsg('Pokemon not found')
-        : setPokemon(data);
+      if(data.status === 200){
+        setPokemon(data);
+        setErrorMsg('');
+      } else { 
+        setErrorMsg('Pokemon not found');
+      }
       setDisable(false);
     })
   }
 
   return (
     <StyledDiv> 
-      <div> Greetings </div>
+      <Title>Pokemon Weakness Finder</Title>
 
       <StyledForm
       >
-        <SearchBox>
-          <StyledInput 
-            type="text"
-            onChange={(e)=>setInputVal(e.target.value)}
-            value={inputVal}
-          />
-          <SuggestDiv>
-            <Suggestions suggestArr={suggestArr} inputVal={inputVal}/>
-          </SuggestDiv>
-        </SearchBox>
         <StyledButton
           type='submit'
           onClick={()=>{
@@ -88,16 +82,34 @@ const Homepage : React.FC<PropsWithChildren<props>> = () => {
         >
           Get Weaknesses!
         </StyledButton>
+        <SearchBox>
+          <StyledInput 
+            type="text"
+            onChange={(e)=>setInputVal(e.target.value)}
+            value={inputVal}
+            placeholder={'Bulbasaur'}
+          />
+          <SuggestDiv>
+            <Suggestions 
+            suggestArr={suggestArr} 
+            inputVal={inputVal} 
+            setInputVal={setInputVal}/>
+          </SuggestDiv>
+        </SearchBox>
+        
       </StyledForm>
+          
       <p>{errorMsg}</p>
-      <div>{pokemon && pokemon.id}</div>
-      <div>{pokemon && pokemon.name}</div>
+      <div>{pokemon && `#${pokemon.id}`}</div>
+      <div>{pokemon && pokemon.name.toUpperCase()}</div>
       <div>{pokemon && pokemon.types? <WeakDisplay weaks={pokemon.types}/>: ''}</div>
     </StyledDiv> 
   ) 
 }; 
 
 const StyledDiv = styled.div`
+  /* width: 100%; */
+  height: 50vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -106,11 +118,29 @@ const StyledDiv = styled.div`
       flex-direction: column;
       align-items: center;
   }
+  background: maroon;
+`;
+const Title = styled.h1`
+  width: 90%;
+  margin: 1rem 0;
+  padding: .5rem;
+  text-align: center;
+  font-size: 1.5rem;
+  font-family: 'Bangers', cursive;
+  color: white;
+  background: black;
+  border-radius: 15px;
+  border: 2px solid white;
 `;
 const StyledForm=styled.form`
   width: 90%;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
+  padding: .5rem;
+  background: whitesmoke;
+  border-radius: 15px;
 `;
 const SearchBox = styled.div`
   display: flex;
@@ -124,13 +154,28 @@ const StyledInput = styled.input`
   border: none;
   box-sizing: border-box;
   margin: 0;
+  &:focus {
+    outline: none;
+  }
+  text-align: center;
+  padding: .3rem;
+  border: 3px solid black;
+  border-radius: 0 0 7px 7px;
 `;
 const SuggestDiv= styled.div`
   position: relative;
   width: 100%;
 `;
 const StyledButton = styled.button`
-  font-size: .75rem;
+  width: 100%;
+  height: 3rem;
+  margin: 0;
+  font-size: 1.2rem;
+  font-family: 'Bangers', cursive;
+  color: whitesmoke;
+  background: red;
+  border: 3px solid black;
+  border-radius: 7px 7px 0 0;
 `;
 
 export default Homepage;

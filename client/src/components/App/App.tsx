@@ -13,8 +13,9 @@ const App = () => {
 };
 
 const Wrapper = styled.div`
-  height: 100vw;
-  width: 100vw;
+  /* height: 100%; */
+  /* width: 100%; */
+  background: whitesmoke;
 `;
 
 
