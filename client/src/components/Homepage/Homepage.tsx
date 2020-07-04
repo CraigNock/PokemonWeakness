@@ -140,7 +140,8 @@ const Homepage : React.FC<PropsWithChildren<props>> = () => {
             {pokemon && `#${pokemon.id} ${pokemon.name.toUpperCase()}`}
           </InfoP>
           <SmallTypes>
-            {pokemon && `${pokemon.types[0]}/${pokemon.types[1]}`}
+            <span>{pokemon && pokemon.types[0]}</span>
+            <span>{pokemon && pokemon.types[1]? `/${pokemon.types[1]}`:''}</span>
           </SmallTypes>
         </Info>
         <WeakDisplay weaks={pokemon.weaknesses}/>
@@ -296,7 +297,7 @@ const InfoP = styled.p`
   font-weight: bold;
 `;
 const SmallTypes = styled.p`
-  font-size: .6rem;
+  font-size: .7rem;
   text-align: center;
 `;
 const BottomDiv = styled.div`
