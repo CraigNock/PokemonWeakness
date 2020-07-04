@@ -73,20 +73,21 @@ const Homepage : React.FC<PropsWithChildren<props>> = () => {
       }).catch(err=>{
         console.log('fetch err', err);
         setErrorMsg('Server Unavailable');
+        setDisable(false);
       })
     }
   }
 
-  const testweak = {
-    fire: 0.5,
-    water: 2,
-    grass: 0.5,
-    ice: 0.5,
-    ground: 2,
-    bug: 0.5,
-    rock: 2,
-    steel: 0.5
-  }
+  // const testweak = {
+  //   fire: 0.5,
+  //   water: 2,
+  //   grass: 0.5,
+  //   ice: 0.5,
+  //   ground: 2,
+  //   bug: 0.5,
+  //   rock: 2,
+  //   steel: 0.5
+  // }
 
   return (
     <>
