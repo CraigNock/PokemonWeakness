@@ -136,7 +136,12 @@ const Homepage : React.FC<PropsWithChildren<props>> = () => {
       {pokemon && pokemon.weaknesses?
       <InfoDisplayDiv>
         <Info>
-          <p>{pokemon && `#${pokemon.id} ${pokemon.name.toUpperCase()}`}</p>
+          <InfoP>
+            {pokemon && `#${pokemon.id} ${pokemon.name.toUpperCase()}`}
+          </InfoP>
+          <SmallTypes>
+            {pokemon && `${pokemon.types[0]}/${pokemon.types[1]}`}
+          </SmallTypes>
         </Info>
         <WeakDisplay weaks={pokemon.weaknesses}/>
       </InfoDisplayDiv>
@@ -247,7 +252,11 @@ const StyledButton = styled.button`
     0 0 3px rgba(0, 0, 0, 0.8), 
     0 0 4px rgba(0, 0, 0, 0.9);
   background: red;
-  border: 3px solid black;
+  /* border: 3px solid black; */
+  border-top: 3px groove #CCCCCC;
+  border-right: 3px solid #333333;
+  border-bottom: 3px solid #333333;
+  border-left: 3px groove #CCCCCC;
   border-radius: 7px 7px 0 0;
   &:hover{
     cursor:pointer;
@@ -279,11 +288,16 @@ const Info = styled.div`
   border-radius: 10px;
   border: 2px solid black;
   p {
-    font-size: 1rem;
-    font-weight: bold;
     font-family: 'Orbitron', sans-serif;
-    
   }
+`;
+const InfoP = styled.p`
+  font-size: 1rem;
+  font-weight: bold;
+`;
+const SmallTypes = styled.p`
+  font-size: .6rem;
+  text-align: center;
 `;
 const BottomDiv = styled.div`
   width: 100%;
