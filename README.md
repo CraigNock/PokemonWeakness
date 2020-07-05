@@ -4,7 +4,7 @@
 
 - Looking to add to your team, but don't want to do the mental gymnastics required to figure out the results of type combinations? 
 
-- Wishing there were a quick and easy way to just find out what'll take down this pokemon in particular?
+- Wishing there were a quick and easy way to just find out what'll take down this-pokemon-in-particular?
 
 Wish no longer! <em>Pokemon Weakness Finder</em> delivers exactly what it says! Simply enter a Pokemon name and in seconds get the typings it is weak to and resistant to. 
 
@@ -32,11 +32,12 @@ Built with TypeScript, JavaScript, React, Node & Express.js.
 ---
 ## Features
 
-- Quick and simple pokemon weakness information from the pokemon API.
+- Quick and simple pokemon weakness information from the pokemon **API**.
 
-- Typeahead to easier find your pokemon name.
+- **Typeahead** to easier find your pokemon name.
 
-- RESTful client and server design. (project can easily be made without a server).
+- **RESTful** client and server design. 
+**(Project can easily be made without a server)**.
 
-- Background displays searched for pokemon's type colors.
+- **Dynamic** Background displays the searched for pokemon's type colors.
 

@@ -1,45 +1,22 @@
 export {}
 import express, { RequestHandler } from 'express';
 import bodyParser from 'body-parser';
+import * as path from 'path';
 import cors from 'cors';
 import request from 'request-promise';
 import morgan from 'morgan';
 import { TYPES, TYPE_ORDER, TYPE_CHART, ALL_NAMES } from './typeChart';
 
 const app: express.Application = express();
-const PORT = process.env.PORT || 8000;
+const PORT: string | number = process.env.PORT || 8000;
 
 
-// const random = (min: number, max: number): number => {
-//   let rand = Math.floor(Math.random()*(max-min) + min);
-//   // console.log('rand', rand);
-//   return rand;
-// };
-
-// const pokemonHandler: RequestHandler = async (req, res) => {
-//   let pokeData = await request('https://pokeapi.co/api/v2/gender/1/');
-//   pokeData = JSON.parse(pokeData);
-//   let randomPoke = random(0, 683);
-//   // console.log('pokeData', pokeData);
-//   let colorPath = pokeData.pokemon_species_details[randomPoke].pokemon_species.url;
-//   console.log('pokemon_species_details', pokeData.pokemon_species_details.length);
-//   let pokeColor = await request(`${colorPath}`);
-//   pokeColor = JSON.parse(pokeColor);
-//   console.log('pokeColor', pokeColor.color.name);
-//   let returnPoke = {
-//     name: pokeData.pokemon_species_details[randomPoke].pokemon_species.name,
-//     color: pokeColor.color.name,
-//     eggGroup: pokeColor.egg_groups[0].name
-//   };
-//   res.json(returnPoke);
-// };
-
-interface objectThing {
+interface numberObject {
   [key: string]: number
 };
 
 const sortWeakness = (typearr: string[]) => {
-  let weaknesses: objectThing = {};
+  let weaknesses: numberObject = {};
   typearr.forEach(entry => {
     let order = TYPE_ORDER[entry];
     TYPES.forEach(element => {
@@ -64,9 +41,13 @@ interface typeEntry {
 }
 const pokemonTypeHandler: RequestHandler = async (req, res) => {
   const { name } = req.params;
+  console.log('name', name);
   if (ALL_NAMES.indexOf(name.toLowerCase()) !== -1) {
+    let cleanName = name.replace(/[ ]/g, "-"); //for api readability
+    cleanName = cleanName.replace(/[.:]/g, "");
+    console.log('cleanName', cleanName);
     try {
-      let pokeData = await request(`https://pokeapi.co/api/v2/pokemon/${name.toLowerCase()}/`);
+      let pokeData = await request(`https://pokeapi.co/api/v2/pokemon/${cleanName.toLowerCase()}/`);
       pokeData = JSON.parse(pokeData);
       // console.log('pokeData', pokeData);
       let typeArr: string[] = pokeData.types.map((entry: typeEntry) => {
@@ -113,7 +94,7 @@ app.use(function(req : express.Request , res : express.Response, next : express.
 app.get('/', (req, res) => {
   res.send('hi');
 });
-// app.get('/pokemon', pokemonHandler);
+
 app.get('/pokemon/:name', pokemonTypeHandler);
 
 

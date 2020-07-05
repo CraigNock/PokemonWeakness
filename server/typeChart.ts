@@ -1,13 +1,13 @@
 export const TYPES: string[] = ["normal", "fire", "water", "electric", "grass", "ice", "fighting", "poison", "ground", "flying", "psychic", "bug", "rock", "ghost", "dragon", "dark", "steel", "fairy"];
 
-interface objectThing {
+interface numberObject {
   [key: string]: number
 };
-interface objectThing2 {
+interface numArrayObject {
   [key: string]: number[]
 };
 
-export const TYPE_ORDER: objectThing  = {
+export const TYPE_ORDER: numberObject  = {
 		normal: 0,
 		fire: 1,
 		water: 2,
@@ -27,7 +27,7 @@ export const TYPE_ORDER: objectThing  = {
     steel: 16,
     fairy: 17
 };
-export const TYPE_CHART: objectThing2 = {
+export const TYPE_CHART: numArrayObject = {
   normal: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.5, 0, 1, 1, 0.5, 1],
   fire: [1, 0.5, 0.5, 1, 2, 2, 1, 1, 1, 1, 1, 2, 0.5, 1, 0.5, 1, 2, 1],
   water: [1, 2, 0.5, 1, 0.5, 1, 1, 1, 2, 1, 1, 1, 2, 1, 0.5, 1, 1, 1],

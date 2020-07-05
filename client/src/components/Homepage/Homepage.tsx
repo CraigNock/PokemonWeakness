@@ -50,7 +50,7 @@ const Homepage : React.FC<PropsWithChildren<props>> = () => {
     } else {
       setDisable(true);
       setSuggestArr(null);
-      fetch(`http://localhost:8000/pokemon/${pokeName? pokeName: inputVal}`
+      fetch(`pokemon/${pokeName? pokeName: inputVal}`
       , {
         method: 'GET',
         headers: {
