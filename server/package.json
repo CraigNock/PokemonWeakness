@@ -5,6 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "start": "nodemon dist/index.js",
+    "postinstall":"tsc",
     "dev": "ts-node-dev --respawn --transpileOnly ./index.ts"
   },
   "keywords": [],
