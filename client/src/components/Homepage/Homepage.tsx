@@ -89,6 +89,16 @@ const Homepage : React.FC<PropsWithChildren<props>> = () => {
   //   steel: 0.5
   // }
 
+  // background: blue; /* For browsers that do not support gradients */
+  // background: -webkit-linear-gradient(left, blue 50% , yellow 50%); /* For Safari 5.1 to 6.0 */
+  // background: -o-linear-gradient(right, blue 50%, yellow 50%); /* For Opera 11.1 to 12.0 */
+  // background: -moz-linear-gradient(right, blue 50%, yellow 50%); /* For Firefox 3.6 to 15 */
+  // background: linear-gradient(to right, blue 50% , yellow 50%); /* Standard syntax */
+  // }
+
+  //inputColor={bleh} in component
+  // color: ${props => props.inputColor || "palevioletred"}; //in styled
+
   return (
     <>
     <StyledDiv
@@ -159,12 +169,11 @@ const Homepage : React.FC<PropsWithChildren<props>> = () => {
 
 const StyledDiv = styled.div`
   width: 100%;
-  height: 50%;
+  height: 55%;
   /* min-height: fit-content; */
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* background: maroon; */
 `;
 const Title = styled.h1`
   width: 100%;
@@ -175,11 +184,7 @@ const Title = styled.h1`
   font-size: 1.5rem;
   font-family: 'Bangers', cursive;
   color: white;
-
   background: black;
-  /* border-radius: 15px; */
-  /* border: 2px solid white; */
-  /* border-top: none; */
   border-bottom: 2px solid white;
   border-top: 2px solid white; 
 `;
