@@ -169,7 +169,7 @@ const Homepage : React.FC<PropsWithChildren<props>> = () => {
 
 const StyledDiv = styled.div`
   width: 100%;
-  height: 55%;
+  height: 50%;
   /* min-height: fit-content; */
   display: flex;
   flex-direction: column;
