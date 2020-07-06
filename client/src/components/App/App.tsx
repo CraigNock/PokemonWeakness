@@ -19,6 +19,7 @@ position: relative;
   width: 100%;
   max-width: 400px;
   max-height: 700px;
+  overflow-y: auto;
   margin: 0 auto;
   background: whitesmoke;
   @media (min-width: 400px) {
