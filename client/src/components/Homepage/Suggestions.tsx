@@ -55,7 +55,8 @@ const StyledP = styled.p`
   width:100%;
   font-family: 'Orbitron', sans-serif;
   text-align: center;
-  padding: .2rem 0;
+  font-size: 1.1rem;
+  padding: .4rem 0;
   border-radius: 5px;
   &:hover {
     background: white;

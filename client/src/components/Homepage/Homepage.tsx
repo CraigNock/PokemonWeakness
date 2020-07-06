@@ -209,6 +209,7 @@ const StyledInput = styled.input`
     outline: none;
   }
   font-family: 'Orbitron', sans-serif;
+  font-size: 1.1rem;
   text-align: center;
   padding: .3rem;
   border: 3px solid black;

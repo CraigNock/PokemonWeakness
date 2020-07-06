@@ -4,7 +4,7 @@
   "description": "Pokemon Weakness app",
   "main": "/client/public/index.html",
   "scripts": {
-    "client": "cd client && yarn install && yarn build && yarn start",
+    "client": "cd client && yarn install && yarn build",
     "server": "cd server && yarn install && node dist/index.js",
     "start": "yarn install && concurrently \"yarn server\" \"yarn client\"",
     "test": "echo \"Error: no test specified\" && exit 1"
