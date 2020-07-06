@@ -156,10 +156,11 @@ const Homepage : React.FC<PropsWithChildren<props>> = () => {
   ) 
 }; 
 
+
 const StyledDiv = styled.div`
   width: 100%;
-  /* max-width: 400px; */
   height: 50%;
+  /* min-height: fit-content; */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -301,6 +302,7 @@ const SmallTypes = styled.p`
   font-size: .7rem;
   text-align: center;
 `;
+
 const BottomDiv = styled.div`
   width: 100%;
   height: 50%;

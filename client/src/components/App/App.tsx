@@ -13,6 +13,8 @@ const App = () => {
 };
 
 const Wrapper = styled.div`
+position: relative;
+  min-height: fit-content;
   height: 100vh;
   width: 100%;
   max-width: 400px;

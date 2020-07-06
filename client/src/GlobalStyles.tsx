@@ -3,8 +3,9 @@ import {createGlobalStyle} from 'styled-components';
 const Global = createGlobalStyle`
 
 html, body {
-  /* max-width: 100vw; */
-	/* width: 100vw; */
+  /* min-width: 400px; */
+	/* min-height: fit-content; */
+	/* width: 100%; */
 	/* height: 100vh; */
 }
 

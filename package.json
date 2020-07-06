@@ -7,6 +7,7 @@
     "client": "cd client && yarn install && yarn build",
     "server": "cd server && yarn install && node dist/index.js",
     "start": "yarn install && concurrently \"yarn server\" \"yarn client\"",
+    "dev": "concurrently \"cd client && yarn build\" \"cd server && node dist/index.js\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
