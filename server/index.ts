@@ -78,6 +78,7 @@ const pokemonTypeHandler: RequestHandler = async (req, res) => {
 };
 
 
+app.use(express.static(path.join(__dirname, '../../client/build')));
 //or without body-parser (may be built into express depending on version):> app.use(express.json()) does same thing;
 app.use(bodyParser.json()); 
 app.use(cors());
@@ -91,11 +92,10 @@ app.use(function(req : express.Request , res : express.Response, next : express.
   }
 );
 
-app.get('/', (req, res) => {
-  res.send('hi');
-});
-
 app.get('/pokemon/:name', pokemonTypeHandler);
 
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname+'../../client/build/index.html'));
+});
 
 app.listen(PORT, ()=>{console.log(`Listening on Porto ${PORT}`);});
