@@ -37,8 +37,5 @@ Live Here: https://pokemonweakness.herokuapp.com/
 
 - **Typeahead** to easier find your pokemon name.
 
-- **RESTful** client and server design. 
-**(Project can easily be made without a server)**.
-
 - **Dynamic** Background displays the searched for pokemon's type colors.
 
