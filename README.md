@@ -18,6 +18,7 @@ Simple TypeScript app for users to swiftly lookup Pokemon and view their type we
 
 Built with TypeScript, JavaScript, React, Node & Express.js.
 
+Live Here: https://pokemonweakness.herokuapp.com/
 ---
 ## Screenshots
 <div display='flex' flexDirection='row' >
