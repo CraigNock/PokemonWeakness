@@ -42,11 +42,9 @@ const sortWeakness = (typearr) => {
 };
 const pokemonTypeHandler = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { name } = req.params;
-    console.log('name', name);
-    let cleanName = name.replace(/[ ]/g, "-");
-    cleanName = cleanName.replace(/[.:]/g, "");
-    console.log('cleanName', cleanName);
     if (typeChart_1.ALL_NAMES.indexOf(name.toLowerCase()) !== -1) {
+        let cleanName = name.replace(/[ ]/g, "-");
+        cleanName = cleanName.replace(/[.:]/g, "");
         try {
             let pokeData = yield request_promise_1.default(`https://pokeapi.co/api/v2/pokemon/${cleanName.toLowerCase()}/`);
             pokeData = JSON.parse(pokeData);

@@ -41,11 +41,11 @@ interface typeEntry {
 }
 const pokemonTypeHandler: RequestHandler = async (req, res) => {
   const { name } = req.params;
-  console.log('name', name);
+  // console.log('name', name);
   if (ALL_NAMES.indexOf(name.toLowerCase()) !== -1) {
     let cleanName = name.replace(/[ ]/g, "-"); //for api readability
     cleanName = cleanName.replace(/[.:]/g, "");
-    console.log('cleanName', cleanName);
+    // console.log('cleanName', cleanName);
     try {
       let pokeData = await request(`https://pokeapi.co/api/v2/pokemon/${cleanName.toLowerCase()}/`);
       pokeData = JSON.parse(pokeData);
