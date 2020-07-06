@@ -1,4 +1,4 @@
-# Pokemon-Weaknesses
+# Pokemon-Weakness-Finder
 
 - Run up against a Gym Leader and don't recognize that pokemon that just chewed through half your team? 
 
