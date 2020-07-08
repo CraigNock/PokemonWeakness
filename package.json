@@ -7,7 +7,7 @@
     "client": "cd client && yarn install && yarn build",
     "server": "cd server && yarn install && node dist/index.js",
     "server-start": "cd server && node dist/index.js",
-    "start": "yarn server-start",
+    "start": "yarn server",
     "heroku-postbuild": "cd client && yarn && yarn build",
     "dev": "concurrently \"cd client && yarn build\" \"cd server && node dist/index.js\"",
     "test": "echo \"Error: no test specified\" && exit 1"
