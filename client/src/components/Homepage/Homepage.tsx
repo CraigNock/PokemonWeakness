@@ -15,7 +15,8 @@ interface pokeInfo {
   id: number,
   name: string,
   types: string[],
-  weaknesses: numObject
+  weaknesses: numObject,
+  sprite: string
 }
 
 const Homepage : React.FC<PropsWithChildren<props>> = () => {
@@ -146,13 +147,16 @@ const Homepage : React.FC<PropsWithChildren<props>> = () => {
       {pokemon && pokemon.weaknesses?
       <InfoDisplayDiv>
         <Info>
-          <InfoP>
-            {pokemon && `#${pokemon.id} ${pokemon.name.toUpperCase()}`}
-          </InfoP>
-          <SmallTypes>
-            <span>{pokemon && pokemon.types[0]}</span>
-            <span>{pokemon && pokemon.types[1]? `/${pokemon.types[1]}`:''}</span>
-          </SmallTypes>
+          {pokemon && pokemon.sprite? <InfoSprite src={pokemon.sprite} /> :''}
+          <InfoText>
+            <InfoP>
+              {pokemon && `#${pokemon.id} ${pokemon.name.toUpperCase()}`}
+            </InfoP>
+            <SmallTypes>
+              <span>{pokemon && pokemon.types[0]}</span>
+              <span>{pokemon && pokemon.types[1]? `/${pokemon.types[1]}`:''}</span>
+            </SmallTypes>
+          </InfoText>
         </Info>
         <WeakDisplay weaks={pokemon.weaknesses}/>
       </InfoDisplayDiv>
@@ -290,14 +294,24 @@ const InfoDisplayDiv = styled.div`
   
 `;
 const Info = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin:  0;
-  padding: .3rem .5rem;
+  /* padding: .3rem .5rem; */
   background: white;
   border-radius: 10px;
   border: 2px solid black;
   p {
     font-family: 'Orbitron', sans-serif;
   }
+`;
+const InfoText = styled.div`
+  padding: .3rem .5rem;
+
+`;
+const InfoSprite = styled.img`
+  height: 3rem;
 `;
 const InfoP = styled.p`
   font-size: 1rem;

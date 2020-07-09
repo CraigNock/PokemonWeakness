@@ -68,6 +68,7 @@ const pokemonTypeHandler = (req, res) => __awaiter(void 0, void 0, void 0, funct
         try {
             let pokeData = yield request_promise_1.default(`https://pokeapi.co/api/v2/pokemon/${cleanName.toLowerCase()}/`);
             pokeData = JSON.parse(pokeData);
+            console.log('pokeData', pokeData);
             let typeArr = pokeData.types.map((entry) => {
                 return entry.type.name;
             });
@@ -77,7 +78,8 @@ const pokemonTypeHandler = (req, res) => __awaiter(void 0, void 0, void 0, funct
                 id: pokeData.id,
                 name: pokeData.name,
                 types: typeArr,
-                weaknesses: sortedWeak
+                weaknesses: sortedWeak,
+                sprite: pokeData.sprites.front_default
             };
             res.json(returnType);
         }
