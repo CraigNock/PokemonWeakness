@@ -19,7 +19,7 @@ interface pokeInfo {
   sprite: string
 }
 
-const Homepage : React.FC<PropsWithChildren<props>> = () => {
+const Homepage : React.FC<props> = () => {
 
   const [disable, setDisable] = useState<boolean>(false);
   const [inputVal, setInputVal] = useState<string>('');
@@ -91,19 +91,18 @@ const Homepage : React.FC<PropsWithChildren<props>> = () => {
   // }
 
   // background: blue; /* For browsers that do not support gradients */
-  // background: -webkit-linear-gradient(left, blue 50% , yellow 50%); /* For Safari 5.1 to 6.0 */
-  // background: -o-linear-gradient(right, blue 50%, yellow 50%); /* For Opera 11.1 to 12.0 */
-  // background: -moz-linear-gradient(right, blue 50%, yellow 50%); /* For Firefox 3.6 to 15 */
-  // background: linear-gradient(to right, blue 50% , yellow 50%); /* Standard syntax */
+  // background: -webkit-linear-gradient(blue 50% , yellow 50%); /* For Safari 5.1 to 6.0 */
+  // background: -o-linear-gradient(blue 50%, yellow 50%); /* For Opera 11.1 to 12.0 */
+  // background: -moz-linear-gradient(blue 50%, yellow 50%); /* For Firefox 3.6 to 15 */
+  // background: linear-gradient(blue 50% , yellow 50%); /* Standard syntax */
   // }
-
-  //inputColor={bleh} in component
-  // color: ${props => props.inputColor || "palevioletred"}; //in styled
 
   return (
     <>
     <StyledDiv
-      style={{background: pokemon? COLORS[pokemon['types'][0]] : 'maroon'}}
+      style={{background: pokemon? 
+        `linear-gradient(${COLORS[pokemon['types'][0]]} 50%, ${COLORS[pokemon['types'][1]] || COLORS[pokemon['types'][0]]} 50%` 
+        : 'linear-gradient(maroon 50%, lightgray 50%'}}
     > 
       <Title>Pokemon Weakness Finder</Title>
 
@@ -163,9 +162,9 @@ const Homepage : React.FC<PropsWithChildren<props>> = () => {
         : ''}
       {/* <WeakDisplay weaks={testweak}/> */}
     </StyledDiv> 
-    <BottomDiv
+    {/* <BottomDiv
       style={{background: pokemon? (COLORS[pokemon['types'][1]] || COLORS[pokemon['types'][0]]) : 'lightgray'}}
-    ></BottomDiv>
+    ></BottomDiv> */}
     </>
   ) 
 }; 
@@ -173,8 +172,8 @@ const Homepage : React.FC<PropsWithChildren<props>> = () => {
 
 const StyledDiv = styled.div`
   width: 100%;
-  height: 50%;
-  /* min-height: fit-content; */
+  height: 100%;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -13,9 +13,9 @@ const App = () => {
 };
 
 const Wrapper = styled.div`
-position: relative;
-  min-height: fit-content;
-  height: 100vh;
+/* position: relative; */
+  height: 100%;
+  min-height: 100vh;
   width: 100%;
   max-width: 400px;
   max-height: 700px;
