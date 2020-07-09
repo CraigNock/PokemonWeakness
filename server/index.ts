@@ -49,7 +49,7 @@ const pokemonTypeHandler: RequestHandler = async (req, res) => {
     try {
       let pokeData = await request(`https://pokeapi.co/api/v2/pokemon/${cleanName.toLowerCase()}/`);
       pokeData = JSON.parse(pokeData);
-      console.log('pokeData', pokeData);
+      // console.log('pokeData', pokeData);
       let typeArr: string[] = pokeData.types.map((entry: typeEntry) => {
         return entry.type.name;
       })

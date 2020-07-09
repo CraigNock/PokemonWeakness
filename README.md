@@ -22,7 +22,6 @@ Live Here: https://pokemonweakness.herokuapp.com/
 ---
 ## Screenshots
 <div display='flex' flexDirection='row' >
-<img src="http://pokeapi.co/media/sprites/pokemon/120.png" />
 <img width='40%' src='.\client\src\assets\screenshots\screen1.png'/>
 <img width='40%' src='.\client\src\assets\screenshots\screen2.png'/>
 <img width='40%' src='.\client\src\assets\screenshots\screen3.png'/>
