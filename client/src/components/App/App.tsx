@@ -23,6 +23,7 @@ const Wrapper = styled.div`
   margin: 0 auto;
   background: whitesmoke;
   @media (min-width: 400px) {
+    min-height: 500px;
     border: 5px solid whitesmoke;
     box-sizing: border-box;
   }
