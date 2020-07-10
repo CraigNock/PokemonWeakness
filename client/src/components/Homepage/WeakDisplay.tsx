@@ -17,6 +17,7 @@ const WeakDisplay : React.FC<PropsWithChildren<props>> = ({weaks}) => {
   let weaknesses: string[] = [];
   let immunities: string[] = [];
   let resistances: string[] = [];
+  // let abilities: string[] = []; //catagory for potential ability modifiers
 
   weakKeys.forEach(name => {
     if (weaks[name] === 1) return;
@@ -71,6 +72,21 @@ const WeakDisplay : React.FC<PropsWithChildren<props>> = ({weaks}) => {
       })}
     </Wrapper>
     : ''}
+    {/* {abilities.length? <Wrapper>
+      <Subheader>Potential Abilities:</Subheader>
+      {weakKeys && abilities.map((name, id) => {
+        return (
+          <Display
+            key={id}
+            style={{background: COLORS[name]}}
+          >
+            {name.toUpperCase()} 
+            <span> x{weaks[name]}</span>
+          </Display>
+        )
+      })}
+    </Wrapper>
+    : ''} */}
     </>
   )
 }

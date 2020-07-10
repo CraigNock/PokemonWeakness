@@ -44,6 +44,12 @@ exports.TYPE_CHART = {
     steel: [1, 0.5, 0.5, 0.5, 1, 2, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 0.5, 2],
     fairy: [1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1]
 };
+
+//ADD ABILITY_LIST
+// exports.ABILITY_LIST = {
+
+// };
+
 exports.ALL_NAMES = [
     "bulbasaur",
     "ivysaur",

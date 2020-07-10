@@ -32,6 +32,10 @@ const sortWeakness = (typearr: string[]) => {
   return weaknesses;
 }
 
+const processAbilities = () => {
+  //requires hard data of abilities that affect attack types
+};
+
 interface typeEntry {
   slot: number,
   type: {
@@ -63,6 +67,7 @@ const pokemonTypeHandler: RequestHandler = async (req, res) => {
         types: typeArr,
         weaknesses: sortedWeak,
         sprite: pokeData.sprites.front_default
+        //add ability modifiers separate or add to sortedweak.
       };
       res.json(returnType);
     } catch (err){()=>{
