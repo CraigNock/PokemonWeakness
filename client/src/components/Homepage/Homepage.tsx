@@ -178,6 +178,9 @@ const StyledDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  @media (min-width: 400px) {
+    min-height: 500px;
+  }
 `;
 const Title = styled.h1`
   width: 100%;
