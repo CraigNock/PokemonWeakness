@@ -17,6 +17,14 @@ const Suggestions : React.FC<props> = ({suggestArr, inputVal, setInputVal, submi
         if (id < 11)
         return <StyledP 
         key={id}
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if(e.keyCode === 13) {
+            e.preventDefault();
+            setInputVal(name);
+            submitHandle(name);
+          }
+        }}
         onClick={(e)=>{
           e.preventDefault();
           setInputVal(name);

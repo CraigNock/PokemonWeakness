@@ -17,15 +17,21 @@ const Wrapper = styled.div`
   height: 100%;
   min-height: 100vh;
   width: 100%;
-  max-width: 400px;
-  max-height: 700px;
+  /* max-width: 400px; */
+  /* max-height: 800px; */
   overflow-y: auto;
   margin: 0 auto;
   background: whitesmoke;
-  @media (min-width: 400px) {
-    min-height: 500px;
+  @media (min-width: 500px) {
+    min-height: 600px;
+    max-height: 800px;
+    max-width: 500px;
     border: 5px solid whitesmoke;
     box-sizing: border-box;
+    margin-top: 10vh;
+  }
+  @media (min-width: 1050px) {
+    margin-top: 0;
   }
 `;
 

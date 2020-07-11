@@ -174,12 +174,13 @@ const StyledDiv = styled.div`
   width: 100%;
   height: 100%;
   min-height: 100vh;
-  max-height: 700px;
+  /* max-height: 800px; */
   display: flex;
   flex-direction: column;
   align-items: center;
-  @media (min-width: 400px) {
-    min-height: 500px;
+  @media (min-width: 500px) {
+    min-height: 600px;
+    max-height: 800px;
   }
 `;
 const Title = styled.h1`
