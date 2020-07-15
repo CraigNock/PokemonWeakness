@@ -10,7 +10,7 @@ Wish no longer! <em>Pokemon Weakness Finder</em> delivers exactly what it says! 
 
 No fuss. No extra screens. No Team Rocket.
 
-No need to even type the whole name! With our predictive algorithms you can narrow down your pokemon in an instant. All colour coded for clear, easy reading. 
+No need to even type the whole name! With our predictive suggestions, you can narrow down your pokemon in an instant. All colour coded for clear, easy reading. 
 
 
 ---
@@ -52,9 +52,12 @@ Live Here: https://pokemonweakness.herokuapp.com/
 
 ## Features
 
-- Quick and simple pokemon weakness information from the pokemon **API**.
+- Quick and simple pokemon weakness information. 
 
 - **Typeahead** to easier find your pokemon name.
 
 - **Dynamic** Background displays the searched for pokemon's type colors.
 
+- Sprite provided for easy visual identification.
+
+- The **PokeAPI** utilized in this project merely provides the searched for Pokemon's types. Our **special algorithims** do the rest, providing you with the tactical type-relationship information you need fast!
