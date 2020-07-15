@@ -14,12 +14,15 @@ No need to even type the whole name! With our predictive algorithms you can narr
 
 
 ---
+
 Simple TypeScript app for users to swiftly lookup Pokemon and view their type weaknesses/resistances.
 
 Built with TypeScript, JavaScript, React, Node & Express.js.
 
 Live Here: https://pokemonweakness.herokuapp.com/
+
 ---
+
 ## Screenshots
 <div display='flex' flexDirection='row' >
 <img width='40%' src='.\client\src\assets\screenshots\screen1.png'/>
@@ -31,6 +34,22 @@ Live Here: https://pokemonweakness.herokuapp.com/
 </div>
 
 ---
+
+## Installing
+
+ Prerequisites:
+
+- Before you begin, ensure you have you have installed the latest version of Node.js and Yarn.
+
+1. Open up your favourite code editor (such as Visual Studio Code) and git clone the repository.
+2. Change directory to the project folder and open the terminal there.
+3. In the terminal enter $yarn full-install. Concurrently will be installed, then this dependancy will install all the necessary dependancies for both the Server and the React app. (for your convenience!)
+4. Open up a terminal in the server directory and enter $tsc . This will compile the TypeScript files to JavaScript so it's ready to go. 
+5. Once step #4 is completed; back in the main terminal enter $yarn dev. This will build the client and run the server.
+6. In your browser navigate to "http://localhost:8000/". The server should be serving up the built app there!
+
+---
+
 ## Features
 
 - Quick and simple pokemon weakness information from the pokemon **API**.
