@@ -60,6 +60,8 @@ const sortWeakness = (typearr) => {
     });
     return weaknesses;
 };
+const processAbilities = () => {
+};
 const pokemonTypeHandler = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { name } = req.params;
     if (typeChart_1.ALL_NAMES.indexOf(name.toLowerCase()) !== -1) {
