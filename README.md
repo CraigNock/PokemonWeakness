@@ -1,6 +1,6 @@
 # Pokemon-Weakness-Finder
 
-- Run up against a Gym Leader and don't recognize that pokemon that just chewed through half your team? 
+- Run up against a Gym Leader and don't recognize that pokemon that just defeated half your team? 
 
 - Looking to add to your team, but don't want to do the mental gymnastics required to figure out the results of type combinations? 
 
